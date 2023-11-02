@@ -1,4 +1,4 @@
-namespace CineNauta.Models
+namespace Cine_Nauta.Models
 {
     public class ErrorViewModel
     {

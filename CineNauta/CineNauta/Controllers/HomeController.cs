@@ -1,8 +1,8 @@
-﻿using CineNauta.Models;
+﻿using Cine_Nauta.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 //load
-namespace CineNauta.Controllers
+namespace Cine_Nauta.Controllers
 {
     public class HomeController : Controller
     {
