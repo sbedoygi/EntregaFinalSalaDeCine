@@ -1,5 +1,10 @@
 using Cine_Nauta.DAL;
+using Cine_Nauta.DAL.Entities;
+using Cine_Nauta.Helpers;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +21,47 @@ builder.Services.AddDbContext<DataBaseContext>(
 //Builder para llamar la clase SeederDb.cs|
 builder.Services.AddTransient<SeederDb>();
 
-var app = builder.Build();
 
+
+//Builder para llamar la interfaz IUserHelper.cs
+builder.Services.AddScoped<IUserHelper, UserHelper>();
+
+//Builder para llamar la interfaz IDropDownListHelper.cs
+//builder.Services.AddScoped<IDropDownListHelper, DropDownListHelper>();
+
+
+var supportedCultures = new[]
+{
+    new CultureInfo("es-CO")
+};
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("es-CO");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
+
+builder.Services.AddIdentity<User, IdentityRole>(io =>
+{
+    io.User.RequireUniqueEmail = true;
+    io.Password.RequireDigit = false;
+    io.Password.RequiredUniqueChars = 0;
+    io.Password.RequireLowercase = false;
+    io.Password.RequireNonAlphanumeric = false;
+    io.Password.RequireUppercase = false;
+    io.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<DataBaseContext>();
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Unauthorized";
+    options.AccessDeniedPath = "/Account/Unauthorized";
+});
+var app = builder.Build();
+app.UseRequestLocalization();
 SeederData();
 void SeederData()
 {
@@ -42,9 +86,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication(); //Autenticar mi usuario
 app.UseAuthorization();
-
+app.UseStatusCodePagesWithReExecute("/error/{0}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
