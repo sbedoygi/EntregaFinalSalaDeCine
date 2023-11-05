@@ -17,6 +17,6 @@ namespace Cine_Nauta.DAL.Entities
 
         [Display(Name = "Sala.")]
         [JsonIgnore]
-        public virtual Room Room { get; set; } //Relacion con Room(sala)
+        public virtual Room Room { get; set; } //Relacion con Room(sala) //Relacion con Room(sala)
     }
 }
