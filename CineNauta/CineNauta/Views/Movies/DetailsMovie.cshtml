@@ -1,0 +1,109 @@
+﻿@model Cine_Nauta.DAL.Entities.Movie
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center">Detalles</h1>
+
+
+
+
+<div class="row">
+    <hr />
+    <div class="col">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LaunchYear)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LaunchYear)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Director)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Director)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Duration)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Gender.GenderName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Gender.GenderName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Classification.ClassificationName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Classification.ClassificationName)
+            </dd>
+        </dl>
+    </div>
+    <div class="col">
+
+        <h2 class="text-center">Funciones</h2>
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().Room.NumberRoom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().Room.TypeRoom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().FunctionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().Price)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Functions)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Room.NumberRoom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Room.TypeRoom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FunctionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <a asp-action="AddFunctionInCart" asp-route-functionId="@item.Id" class="btn btn-primary">Agregar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Movies" class="btn btn-outline-success">Regresar</a>
+</div>
