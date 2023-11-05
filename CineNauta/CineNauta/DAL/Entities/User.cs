@@ -49,6 +49,7 @@ namespace Cine_Nauta.DAL.Entities
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
 
         // Un usuario puede tener varias reservas
+        // Un usuario puede tener varias reservas
         public ICollection<Reservation> Reservations { get; set; }
     }
 }
