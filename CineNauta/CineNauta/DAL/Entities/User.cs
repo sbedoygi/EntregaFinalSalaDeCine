@@ -1,4 +1,4 @@
-﻿using Cine_Nauta.Emun;
+﻿
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -38,7 +38,6 @@ namespace Cine_Nauta.DAL.Entities
         [JsonIgnore]
         public City City { get; set; }
 
-        [Display(Name = "Tipo de usuario")]
 
 
 
