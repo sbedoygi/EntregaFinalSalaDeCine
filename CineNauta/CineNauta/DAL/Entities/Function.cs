@@ -26,6 +26,6 @@ namespace Cine_Nauta.DAL.Entities
         public ICollection<Reservation> Reservations { get; set; }
 
 
-        |   
+         
     }
 }
