@@ -1,4 +1,4 @@
-﻿
+﻿using Cine_Nauta.Emun;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -38,7 +38,8 @@ namespace Cine_Nauta.DAL.Entities
         [JsonIgnore]
         public City City { get; set; }
 
-
+        [Display(Name = "Tipo de usuario")]
+        public UserType UserType { get; set; }
 
 
         //Propiedades de Lectura
@@ -49,7 +50,7 @@ namespace Cine_Nauta.DAL.Entities
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
 
         // Un usuario puede tener varias reservas
-        // Un usuario puede tener varias reservas
         public ICollection<Reservation> Reservations { get; set; }
     }
 }
+
