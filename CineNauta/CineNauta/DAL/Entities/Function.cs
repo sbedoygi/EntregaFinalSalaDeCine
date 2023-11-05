@@ -16,7 +16,10 @@ namespace Cine_Nauta.DAL.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Price { get; set; }
 
- 
+        [Display(Name = "Pelicula")]
+        [JsonIgnore]
+        public Movie Movie { get; set; } //Relacion con Pelicula
+
         [Display(Name = "Sala")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RoomId { get; set; }
@@ -26,6 +29,7 @@ namespace Cine_Nauta.DAL.Entities
         public ICollection<Reservation> Reservations { get; set; }
 
 
-         
+
     }
 }
+

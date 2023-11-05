@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
-
 namespace Cine_Nauta.DAL.Entities
 {
     public class Reservation : EntityCine
@@ -18,9 +16,14 @@ namespace Cine_Nauta.DAL.Entities
         [Display(Name = "Función")]
         public Function Function { get; set; }
 
+        // Relación con el usuario (una reserva pertenece a un usuario)
+        [Display(Name = "Usuarios")]
+        public User User { get; set; }
 
         // Asientos reservados (una reserva puede tener múltiples asientos)
         [Display(Name = "Asientos")]
         public ICollection<Seat> Seats { get; set; }
+
     }
 }
+

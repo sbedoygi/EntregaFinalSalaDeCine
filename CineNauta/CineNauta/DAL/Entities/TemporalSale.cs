@@ -6,7 +6,7 @@ namespace Cine_Nauta.DAL.Entities
     {
         //public ICollection<OrderDetail> OrderDetails { get; set; }
 
-
+        public User User { get; set; }
 
         public Function Function { get; set; }
 
@@ -20,3 +20,4 @@ namespace Cine_Nauta.DAL.Entities
         public decimal Value => Function == null ? 0 : (decimal)Quantity * Function.Price;
     }
 }
+

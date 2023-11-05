@@ -15,7 +15,7 @@ namespace Cine_Nauta.DAL.Entities
         [JsonIgnore]
         public State State { get; set; }
 
-       
+        public ICollection<User> Users { get; set; }
     }
 }
 
