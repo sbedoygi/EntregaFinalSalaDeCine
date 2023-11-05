@@ -54,7 +54,6 @@ builder.Services.AddIdentity<User, IdentityRole>(io =>
     io.Password.RequiredLength = 6;
 }).AddEntityFrameworkStores<DataBaseContext>();
 
-
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Unauthorized";
