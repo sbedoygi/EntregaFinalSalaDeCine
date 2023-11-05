@@ -20,9 +20,14 @@ namespace Cine_Nauta.DAL
         public DbSet<Classification> Classifications { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Seat> Seats { get; set; }
+        public DbSet<Movie> Movies { get; set; }
         public DbSet<Function> Functions { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Seat> Seats { get; set; }
+        public DbSet<TemporalSale> TemporalSales { get; set; }
+
+
+
         /*Indicies para las tablas*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +40,10 @@ namespace Cine_Nauta.DAL
             modelBuilder.Entity<Gender>().HasIndex(c => c.GenderName).IsUnique();
             modelBuilder.Entity<Room>().HasIndex(r => r.NumberRoom).IsUnique();
             modelBuilder.Entity<Seat>().HasIndex("NumberSeat", "RoomId").IsUnique();
+            modelBuilder.Entity<Movie>().HasIndex(m => m.Title).IsUnique();
             modelBuilder.Entity<Function>().HasIndex("FunctionDate", "RoomId").IsUnique();
+
+
         }
     }
 }
