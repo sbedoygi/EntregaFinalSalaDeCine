@@ -1,0 +1,16 @@
+﻿@model Cine_Nauta.DAL.Entities.Function
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center">Detalles</h1>
+
+<div>
+    <partial name="../Shared/PartialViews/_FunctionDetailDelete" />
+</div>
+
+<div>
+    <a asp-action="Editfunction" asp-route-functionId="@Model?.Id" class="btn btn-outline-warning">Editar Función</a>
+    <a asp-action="Index" class="btn btn-outline-success">Regresar</a>
+</div>

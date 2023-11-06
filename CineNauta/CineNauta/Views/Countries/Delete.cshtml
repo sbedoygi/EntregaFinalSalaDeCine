@@ -1,0 +1,23 @@
+﻿@model Cine_Nauta.DAL.Entities.Country
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container">
+    <main role="main" class="pb-3 p-3">
+        <h1 class="text-center rounded-pill div-title">Eliminar</h1>
+        <h3>¿Estás seguro que deseas eliminar este país?</h3>
+        <div>
+            <partial name="../Shared/PartialViews/_CountryDetailDelete" />
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <br />
+                <input type="submit" value="Eliminar" class="btn btn-outline-danger" />
+                <a asp-action="Index" class="btn btn-outline-success">Regresar</a>
+            </form>
+        </div>
+
+    </main>
+</div>
+
