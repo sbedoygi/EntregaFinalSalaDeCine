@@ -1,6 +1,7 @@
 using Cine_Nauta.DAL;
 using Cine_Nauta.DAL.Entities;
 using Cine_Nauta.Helpers;
+using Cine_Nauta.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<DataBaseContext>(
     o => o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 //Builder para llamar la clase SeederDb.cs|
 builder.Services.AddTransient<SeederDb>();
 
@@ -27,7 +30,7 @@ builder.Services.AddTransient<SeederDb>();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 
 //Builder para llamar la interfaz IDropDownListHelper.cs
-//builder.Services.AddScoped<IDropDownListHelper, DropDownListHelper>();
+builder.Services.AddScoped<IDropDownListHelper, DropDownListHelper>();
 
 
 var supportedCultures = new[]
