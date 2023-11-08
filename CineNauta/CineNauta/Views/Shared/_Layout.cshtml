@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cine_Nauta</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cine Nauta</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,10 +27,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Tablas
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark a-nav" asp-area="" asp-controller="Countries" asp-action="Index">Países</a>
-                                    </li>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">        
                                     <li class="nav-item">
                                         <a class="nav-link text-dark a-nav" asp-area="" asp-controller="Users" asp-action="Index">Usuarios</a>
                                     </li>
@@ -101,3 +98,28 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    /* Color morado personalizado */
+
+
+    /* Fondo morado para el menú desplegable */
+    .a-nav {
+        background-color: #ffff; /* Color de fondo para el menú desplegable */
+    }
+
+    .a-nav:hover {
+        color: #ffff;
+        background-color: #8A2BE2; /* Color de fondo para el menú desplegable */
+        
+    }
+
+    /* Estilos adicionales personalizados */
+    .navbar-brand {
+       
+       font-size: 24px; /* Tamaño de fuente personalizado */
+       font-weight: bold; /* Fuente en negrita */
+    }
+
+ 
+</style>

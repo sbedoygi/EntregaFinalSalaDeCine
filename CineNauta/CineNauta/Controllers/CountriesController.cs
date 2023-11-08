@@ -13,6 +13,7 @@ using Cine_Nauta.Models;
 
 namespace Cine_Nauta.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CountriesController : Controller
     {
         private readonly DataBaseContext _context;

@@ -34,6 +34,7 @@ namespace Cine_Nauta.Controllers
                 .FirstOrDefault();
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -43,6 +44,7 @@ namespace Cine_Nauta.Controllers
                 .ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? Id)
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -100,6 +102,7 @@ namespace Cine_Nauta.Controllers
                 .ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -167,6 +170,7 @@ namespace Cine_Nauta.Controllers
 
 
         // GET: Movies/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? Id)
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -246,8 +250,8 @@ namespace Cine_Nauta.Controllers
         }
 
 
-       
-        
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? Id)
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -280,7 +284,7 @@ namespace Cine_Nauta.Controllers
 
 
         #region Function
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexFunction()
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -290,7 +294,7 @@ namespace Cine_Nauta.Controllers
                  .ToListAsync());
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddFunction(int movieId)
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -356,7 +360,7 @@ namespace Cine_Nauta.Controllers
             return View(addFunctionViewModel);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditFunction(int? functionId)
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -439,8 +443,8 @@ namespace Cine_Nauta.Controllers
             editFunctionViewModel.Movies = await _dropDownListHelper.GetDDLMoviesAsync();
             editFunctionViewModel.Rooms = await _dropDownListHelper.GetDDLRoomsAsync();
         }
-        
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DetailsFunction(int? functionId)
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -458,7 +462,7 @@ namespace Cine_Nauta.Controllers
             return View(function);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteFunction(int? functionId)
         {
             ViewBag.UserFullName = GetUserFullName();
