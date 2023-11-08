@@ -1,5 +1,97 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Cine_Nauta.DAL.Entities.Movie
 @{
+    ViewData["Title"] = "Details";
 }
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
+
+<div class="container">
+    <main role="main" class="pb-3 p-3">
+        <h1 class="text-center rounded-pill div-title">Detalles Pelicula</h1>
+
+        <div class="row">
+
+            <div class="col">
+                <partial name="../Shared/PartialViews/_MovieDetailDelete" />
+                <br />
+                <a asp-action="AddFunction" asp-route-movieId="@Model?.Id" class="btn btn-outline-primary">Agregar Función</a>
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Editar</a>
+                <a asp-action="Index" class="btn btn-outline-success">Regresar</a>
+            </div>
+            <div class="col">
+                <hr />
+                <h1 class="text-center rounded-pill div-title">Funciones</h1>
+
+
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().Room.NumberRoom)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().Room.TypeRoom)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().FunctionDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Functions.FirstOrDefault().Price)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Functions)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Room.NumberRoom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Room.TypeRoom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FunctionDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    <a asp-action="EditFunction" asp-route-functionId="@item.Id" class="btn btn-outline-warning">Editar</a>
+                                    <a asp-action="DetailsFunction" asp-route-functionId="@item.Id" class="btn btn-outline-info">Detalles</a>
+                                    <a asp-action="DeleteFunction" asp-route-functionId="@item.Id" class="btn btn-outline-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "aLengthMenu": [
+                    [5, 25, 50, 100, 200, -1],
+                    [5, 25, 50, 100, 200, "Todos"]
+                ]
+            });
+        });
+    </script>
+    }

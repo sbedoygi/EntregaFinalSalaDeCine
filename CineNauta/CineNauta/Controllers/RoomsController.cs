@@ -78,7 +78,7 @@ namespace Cine_Nauta.Controllers
                     try
                     {
                         TempData["SalaIngresada"] = "Se ingreso correctamente";
-
+                        
                         room.CreatedDate = DateTime.Now;
                         _context.Add(room);
                         await _context.SaveChangesAsync();

@@ -1,24 +1,112 @@
-﻿@model Cine_Nauta.DAL.Entities.City
+﻿@model IEnumerable<Cine_Nauta.DAL.Entities.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
 
 
-<hr />
-<dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Name)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.CreatedDate)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.CreatedDate)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.ModifiedDate)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.ModifiedDate)
-    </dd>
-</dl>
+<div class="">
+    <main role="main" class="pb-3 p-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h1 class="text-center rounded-pill div-title">Peliculas</h1>
+                        <p>
+                            <a asp-action="Create" class="btn btn-outline-primary">Crear nueva Pelicula</a>
+                        </p>
+                        <hr />
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-borderless table-light table-hover table-responsive" id="Table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Title)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Director)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Duration)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LaunchYear)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Gender.GenderName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Classification.ClassificationName)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Director)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Duration)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LaunchYear)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gender.GenderName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Classification.ClassificationName)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Editar</a>
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Detalles</a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "aLengthMenu": [
+                    [5, 25, 50, 100, 200, -1],
+                    [5, 25, 50, 100, 200, "Todos"]
+                ]
+            });
+        });
+    </script>
+}

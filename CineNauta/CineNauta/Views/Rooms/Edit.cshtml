@@ -23,7 +23,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="TypeRoom" class="control-label"></label>
-                <input asp-for="TypeRoom" class="form-control" />
+                <select asp-for="TypeRoom" class="form-control">
+                    <option value="">Seleccione el tipo de sala</option>
+                    <option value="Sencilla">Sencilla</option>
+                    <option value="3D">3D</option>
+                    <!-- Agrega más opciones según sea necesario -->
+                </select>
                 <span asp-validation-for="TypeRoom" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />

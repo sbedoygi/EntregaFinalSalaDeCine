@@ -10,6 +10,7 @@ namespace Cine_Nauta.Models
 
         [Display(Name = "Pelicula")]
         public int MovieId { get; set; }
+        public IEnumerable<SelectListItem> Movies { get; set; }
 
 
         [Display(Name = "Sala")]

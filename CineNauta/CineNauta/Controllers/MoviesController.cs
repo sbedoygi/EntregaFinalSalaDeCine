@@ -88,10 +88,6 @@ namespace Cine_Nauta.Controllers
         }
 
 
-
-
-
-
         public async Task<IActionResult> Movies()
         {
             return View(await _context.Movies
@@ -129,6 +125,7 @@ namespace Cine_Nauta.Controllers
                         Description = addMovieViewModel.Description,
                         Director = addMovieViewModel.Director,
                         Duration = addMovieViewModel.Duration,
+                        LaunchYear = addMovieViewModel.LaunchYear,
                         CreatedDate = DateTime.Now,
                         Gender = await _context.Genders.FindAsync(addMovieViewModel.GenderId),
                         Classification = await _context.Classifications.FindAsync(addMovieViewModel.ClassificationId),
@@ -310,7 +307,6 @@ namespace Cine_Nauta.Controllers
             return View(addFunctionViewModel);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddFunction(AddFunctionViewModel addFunctionViewModel)
@@ -355,7 +351,7 @@ namespace Cine_Nauta.Controllers
             return View(addFunctionViewModel);
         }
 
-        
+
         public async Task<IActionResult> EditFunction(int? functionId)
         {
 
