@@ -36,6 +36,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.UserFullName = GetUserFullName();
             return View(await _context.Movies
                 .Include(m => m.Gender)
                 .Include(m => m.Classification)
@@ -44,6 +45,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> Details(int? Id)
         {
+            ViewBag.UserFullName = GetUserFullName();
             if (Id == null || _context.Movies == null)
             {
                 return NotFound();
@@ -67,6 +69,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> DetailsMovie(int? Id)
         {
+            ViewBag.UserFullName = GetUserFullName();
             if (Id == null || _context.Movies == null)
             {
                 return NotFound();
@@ -90,6 +93,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> Movies()
         {
+            ViewBag.UserFullName = GetUserFullName();
             return View(await _context.Movies
                 .Include(m => m.Functions)
                 //.Include(m => m.Hours)// Incluye los horarios relacionados
@@ -98,7 +102,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> Create()
         {
-            
+            ViewBag.UserFullName = GetUserFullName();
             AddMovieViewModel addMovieViewModel = new()
             {
                 Genders = await _dropDownListHelper.GetDDLGendersAsync(),
@@ -165,7 +169,7 @@ namespace Cine_Nauta.Controllers
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? Id)
         {
-            
+            ViewBag.UserFullName = GetUserFullName();
             if (Id == null) return NotFound();
 
             Movie movie = await _context.Movies.FindAsync(Id);
@@ -246,7 +250,7 @@ namespace Cine_Nauta.Controllers
         
         public async Task<IActionResult> Delete(int? Id)
         {
-            
+            ViewBag.UserFullName = GetUserFullName();
             if (Id == null) return NotFound();
 
             Movie movie = await _context.Movies
@@ -263,6 +267,7 @@ namespace Cine_Nauta.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int Id)
         {
+            
             if (_context.Movies == null)
                 return Problem("Entity set 'DataBaseContext.Movies' is null.");
 
@@ -278,7 +283,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> IndexFunction()
         {
-
+            ViewBag.UserFullName = GetUserFullName();
             return View(await _context.Functions
                  .Include(c => c.Movie)
                  .Include(c => c.Room)
@@ -288,7 +293,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> AddFunction(int movieId)
         {
-
+            ViewBag.UserFullName = GetUserFullName();
             if (movieId == null) return NotFound();
 
             Movie movie = await _context.Movies
@@ -354,7 +359,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> EditFunction(int? functionId)
         {
-
+            ViewBag.UserFullName = GetUserFullName();
             if (functionId == null) return NotFound();
 
             Function function = await _context.Functions
@@ -438,6 +443,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> DetailsFunction(int? functionId)
         {
+            ViewBag.UserFullName = GetUserFullName();
             if (functionId == null) return NotFound();
 
             // Cargar la película y los datos relacionados (Género y Clasificación)     
@@ -455,7 +461,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> DeleteFunction(int? functionId)
         {
-
+            ViewBag.UserFullName = GetUserFullName();
             if (functionId == null) return NotFound();
 
             Function function = await _context.Functions

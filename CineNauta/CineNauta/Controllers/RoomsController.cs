@@ -20,9 +20,19 @@ namespace Cine_Nauta.Controllers
             _context = context;
         }
 
+        private string GetUserFullName()
+        {
+            return _context.Users
+
+                .Where(u => u.Email == User.Identity.Name)
+                .Select(u => u.FullName)
+                .FirstOrDefault();
+        }
+
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
+            ViewBag.UserFullName = GetUserFullName();
             return View(await _context.Rooms
                 .Include(s => s.Seats)
                 .ToListAsync());
@@ -31,6 +41,7 @@ namespace Cine_Nauta.Controllers
         // GET: Rooms/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.UserFullName = GetUserFullName();
             if (id == null || _context.Rooms == null)
             {
                 return NotFound();
@@ -50,6 +61,7 @@ namespace Cine_Nauta.Controllers
         // GET: Rooms/Create
         public IActionResult Create()
         {
+            ViewBag.UserFullName = GetUserFullName();
             return View();
         }
 
@@ -98,6 +110,7 @@ namespace Cine_Nauta.Controllers
         // GET: Rooms/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.UserFullName = GetUserFullName();
             if (id == null || _context.Rooms == null)
             {
                 return NotFound();
@@ -150,6 +163,7 @@ namespace Cine_Nauta.Controllers
         // GET: Rooms/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewBag.UserFullName = GetUserFullName();
             if (id == null || _context.Rooms == null)
             {
                 return NotFound();
@@ -194,7 +208,7 @@ namespace Cine_Nauta.Controllers
         [HttpGet]
         public async Task<IActionResult> AddSeat(int? roomId)
         {
-
+            ViewBag.UserFullName = GetUserFullName();
             if (roomId == null) return NotFound();
 
             Room room = await _context.Rooms.FirstOrDefaultAsync(c => c.Id == roomId);

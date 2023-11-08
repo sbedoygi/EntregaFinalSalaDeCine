@@ -1,4 +1,5 @@
-﻿namespace Cine_Nauta.Emun
+﻿namespace Cine_Nauta.Enum
+
 {
     public enum UserType
     {

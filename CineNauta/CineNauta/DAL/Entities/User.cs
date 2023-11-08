@@ -1,4 +1,4 @@
-﻿using Cine_Nauta.Emun;
+﻿using Cine_Nauta.Enum;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -8,6 +8,7 @@ namespace Cine_Nauta.DAL.Entities
 {
     public class User : IdentityUser
     {
+        
         [Display(Name = "Fecha de creación")]
         public virtual DateTime? CreatedDate { get; set; }
 
@@ -36,7 +37,7 @@ namespace Cine_Nauta.DAL.Entities
 
         [Display(Name = "Ciudad")]
         [JsonIgnore]
-        public City City { get; set; }
+        public City? City { get; set; }
 
         [Display(Name = "Tipo de usuario")]
         public UserType UserType { get; set; }

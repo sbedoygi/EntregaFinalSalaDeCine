@@ -1,5 +1,5 @@
 ﻿using Cine_Nauta.DAL.Entities;
-using Cine_Nauta.Emun;
+using Cine_Nauta.Enum;
 using Cine_Nauta.Helpers;
 
 namespace Cine_Nauta.DAL
