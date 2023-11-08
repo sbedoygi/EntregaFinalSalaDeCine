@@ -4,7 +4,9 @@ using Cine_Nauta.Enum;
 using Cine_Nauta.Helpers;
 using Cine_Nauta.Models;
 using Cine_Nauta.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cine_Nauta.Controllers
 {
@@ -116,6 +118,119 @@ namespace Cine_Nauta.Controllers
             addUserViewModel.Countries = await _ddlHelper.GetDDLCountriesAsync();
             addUserViewModel.States = await _ddlHelper.GetDDLStatesAsync(addUserViewModel.CountryId);
             addUserViewModel.Cities = await _ddlHelper.GetDDLCitiesAsync(addUserViewModel.StateId);
+        }
+
+        public async Task<IActionResult> EditUser()
+        {
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
+
+            if (user == null) return NotFound();
+
+            EditUserViewModel editUserViewModel = new()
+            {
+                Address = user.Address,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,               
+                Cities = await _ddlHelper.GetDDLCitiesAsync(user.City.State.Id),
+                CityId = user.City.Id,
+                Countries = await _ddlHelper.GetDDLCountriesAsync(),
+                CountryId = user.City.State.Country.Id,
+                States = await _ddlHelper.GetDDLStatesAsync(user.City.State.Country.Id),
+                StateId = user.City.State.Id,
+                Id = Guid.Parse(user.Id),
+                Document = user.Document
+            };
+
+            return View(editUserViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                User user = await _userHelper.GetUserAsync(User.Identity.Name);
+
+                user.FirstName = editUserViewModel.FirstName;
+                user.LastName = editUserViewModel.LastName;
+                user.Address = editUserViewModel.Address;
+                user.PhoneNumber = editUserViewModel.PhoneNumber;
+                
+                user.City = await _context.Cities.FindAsync(editUserViewModel.CityId);
+                user.Document = editUserViewModel.Document;
+
+                IdentityResult result = await _userHelper.UpdateUserAsync(user);
+                if (result.Succeeded) return RedirectToAction("Index", "Home");
+                else ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+            }
+
+            await FillDropDownListLocation(editUserViewModel);
+
+            return View(editUserViewModel);
+        }
+
+        private async Task FillDropDownListLocation(EditUserViewModel addUserViewModel)
+        {
+            addUserViewModel.Countries = await _ddlHelper.GetDDLCountriesAsync();
+            addUserViewModel.States = await _ddlHelper.GetDDLStatesAsync(addUserViewModel.CountryId);
+            addUserViewModel.Cities = await _ddlHelper.GetDDLCitiesAsync(addUserViewModel.StateId);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (changePasswordViewModel.OldPassword == changePasswordViewModel.NewPassword)
+                {
+                    ModelState.AddModelError(string.Empty, "Debes ingresar una contraseña diferente.");
+                    return View(changePasswordViewModel);
+                }
+
+                User user = await _userHelper.GetUserAsync(User.Identity.Name);
+
+                if (user != null)
+                {
+                    IdentityResult result = await _userHelper.ChangePasswordAsync(user, changePasswordViewModel.OldPassword, changePasswordViewModel.NewPassword);
+                    if (result.Succeeded) return RedirectToAction("EditUser");
+                    else ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+                }
+                else ModelState.AddModelError(string.Empty, "Usuario no encontrado");
+            }
+
+            return View(changePasswordViewModel);
+        }
+
+
+        [HttpGet]
+        public JsonResult GetStates(Guid countryId)
+        {
+            Country country = _context.Countries
+                .Include(c => c.States)
+                .FirstOrDefault(c => c.Id == countryId);
+
+            if (country == null) return null;
+
+            return Json(country.States.OrderBy(d => d.Name));
+        }
+
+        [HttpGet]
+        public JsonResult GetCities(Guid stateId)
+        {
+            State state = _context.States
+                .Include(s => s.Cities)
+                .FirstOrDefault(s => s.Id == stateId);
+            if (state == null) return null;
+
+            return Json(state.Cities.OrderBy(c => c.Name));
         }
     }
 }
