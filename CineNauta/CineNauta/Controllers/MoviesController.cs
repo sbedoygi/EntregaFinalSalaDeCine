@@ -71,6 +71,7 @@ namespace Cine_Nauta.Controllers
 
         public async Task<IActionResult> DetailsMovie(int? Id)
         {
+            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account");
             ViewBag.UserFullName = GetUserFullName();
             if (Id == null || _context.Movies == null)
             {

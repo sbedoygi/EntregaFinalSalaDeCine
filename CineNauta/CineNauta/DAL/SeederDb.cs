@@ -144,8 +144,7 @@ namespace Cine_Nauta.DAL
 
                         },
                     }
-                }
-                );
+                });
                 _context.Movies.Add(new Movie
                 {
                     Title = "Cadena Perpetua",
@@ -175,8 +174,147 @@ namespace Cine_Nauta.DAL
 
                         },
                     }
-                }
-                );
+                });
+                _context.Movies.Add(new Movie
+                {
+                    Title = "Avengers: Endgame",
+                    Description = "Los héroes de Marvel se reúnen para enfrentar al titán Thanos.",
+                    Director = "Anthony and Joe Russo",
+                    LaunchYear = "2019",
+                    Duration = 181,
+                    GenderId = 4, 
+                    ClassificationId = 2,
+                    CreatedDate = DateTime.Now,
+                    Functions = new List<Function>()
+                    {
+                        new Function
+                        {
+                            RoomId = 1,
+                            Price = 2800,
+                            FunctionDate = new DateTime(2023, 11, 1, 17, 30, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                        new Function
+                        {
+                            RoomId = 2,
+                            Price = 3000,
+                            FunctionDate = new DateTime(2023, 11, 1, 20, 0, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                    }
+                });
+                _context.Movies.Add(new Movie
+                {
+                    Title = "Spirited Away",
+                    Description = "Una niña se adentra en un mundo mágico en busca de sus padres.",
+                    Director = "Hayao Miyazaki",
+                    LaunchYear = "2001",
+                    Duration = 125,
+                    GenderId = 5, 
+                    ClassificationId = 1,
+                    CreatedDate = DateTime.Now,
+                    Functions = new List<Function>()
+                    {
+                        new Function
+                        {
+                            RoomId = 3,
+                            Price = 2500,
+                            FunctionDate = new DateTime(2023, 11, 3, 14, 0, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                        new Function
+                        {
+                            RoomId = 4,
+                            Price = 2700,
+                            FunctionDate = new DateTime(2023, 11, 3, 16, 30, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                    }
+                });
+                _context.Movies.Add(new Movie
+                {
+                    Title = "One Piece: Stampede",
+                    Description = "Los piratas de One Piece se enfrentan en una gran competición.",
+                    Director = "Takashi Otsuka",
+                    LaunchYear = "2019",
+                    Duration = 101,
+                    GenderId = 5, 
+                    ClassificationId = 1,
+                    CreatedDate = DateTime.Now,
+                    Functions = new List<Function>()
+                    {
+                        new Function
+                        {
+                            RoomId = 3,
+                            Price = 2600,
+                            FunctionDate = new DateTime(2023, 11, 5, 15, 0, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                        new Function
+                        {
+                            RoomId = 4,
+                            Price = 2800,
+                            FunctionDate = new DateTime(2023, 11, 5, 18, 0, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                    }
+                });
+                _context.Movies.Add(new Movie
+                {
+                    Title = "Dragon Ball Z: Resurrection 'F'",
+                    Description = "Goku y sus amigos enfrentan a Frieza, que ha vuelto a la vida.",
+                    Director = "Tadayoshi Yamamuro",
+                    LaunchYear = "2015",
+                    Duration = 93,
+                    GenderId = 5, 
+                    ClassificationId = 2,
+                    CreatedDate = DateTime.Now,
+                    Functions = new List<Function>()
+                    {
+                        new Function
+                        {
+                            RoomId = 1,
+                            Price = 2700,
+                            FunctionDate = new DateTime(2023, 11, 7, 16, 30, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                        new Function
+                        {
+                            RoomId = 2,
+                            Price = 2900,
+                            FunctionDate = new DateTime(2023, 11, 7, 19, 0, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                    }
+                });
+                _context.Movies.Add(new Movie
+                {
+                    Title = "Deadpool",
+                    Description = "El mercenario bocazas, Deadpool, embarcado en una misión mortal.",
+                    Director = "Tim Miller",
+                    LaunchYear = "2016",
+                    Duration = 108,
+                    GenderId = 4, 
+                    ClassificationId = 4,
+                    CreatedDate = DateTime.Now,
+                    Functions = new List<Function>()
+                    {
+                        new Function
+                        {
+                            RoomId = 3,
+                            Price = 3000,
+                            FunctionDate = new DateTime(2023, 11, 9, 20, 0, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                        new Function
+                        {
+                            RoomId = 4,
+                            Price = 3200,
+                            FunctionDate = new DateTime(2023, 11, 9, 22, 30, 0),
+                            CreatedDate = DateTime.Now,
+                        },
+                    }
+                });
 
             }
 
@@ -275,6 +413,94 @@ namespace Cine_Nauta.DAL
 
                         }
                });
+                _context.Rooms.Add(
+              new Room
+              {
+                  NumberRoom = "TRES",
+                  Capacity = 30,
+                  CreatedDate = DateTime.Now,
+                  TypeRoom = "3D",
+                  Seats = new List<Seat>()
+                       {
+
+                            new Seat {  NumberSeat  = "A1", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A2", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A3", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A5", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B1", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B2", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B3", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B5", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C1", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C2", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C3", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C5", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D1", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D2", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D3", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D5", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E1", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E2", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E3", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E5", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E6", Busy = true, CreatedDate = DateTime.Now },
+
+
+                       }
+              });
+                _context.Rooms.Add(
+              new Room
+              {
+                  NumberRoom = "CUATRO",
+                  Capacity = 25,
+                  CreatedDate = DateTime.Now,
+                  TypeRoom = "Sencilla",
+                  Seats = new List<Seat>()
+                       {
+
+                            new Seat {  NumberSeat  = "A1", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A2", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A3", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A5", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "A6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B1", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B2", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B3", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B5", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "B6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C1", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C2", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C3", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C5", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "C6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D1", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D2", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D3", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D5", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "D6", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E1", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E2", Busy = true, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E3", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E4", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E5", Busy = false, CreatedDate = DateTime.Now },
+                            new Seat {  NumberSeat  = "E6", Busy = true, CreatedDate = DateTime.Now },
+
+
+                       }
+              });
             }
         }
 
