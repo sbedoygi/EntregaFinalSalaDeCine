@@ -1,9 +1,11 @@
 ﻿using Cine_Nauta.DAL;
 using Cine_Nauta.DAL.Entities;
+using Cine_Nauta.Helpers;
 using Cine_Nauta.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Cine_Nauta.Controllers
 {
@@ -11,19 +13,55 @@ namespace Cine_Nauta.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DataBaseContext _context;
-        public HomeController(ILogger<HomeController> logger, DataBaseContext context)
+        private readonly IUserHelper _userHelper;
+        
+
+        public HomeController(ILogger<HomeController> logger, DataBaseContext context, IUserHelper userHelper)
         {
             _logger = logger;
             _context = context;
+            _userHelper = userHelper;
+            
         }
 
 
 
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View();
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "NameDesc" : "";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "PriceDesc" : "Price";
+            ViewBag.UserFullName = GetUserFullName();
+            ViewBag.CurrentFilter = searchString;
+
+
+            IQueryable<Movie> query = _context.Movies
+
+               .Include(p => p.Functions);
+               
+
+
+            //Begins New change
+            HomeViewModel homeViewModel = new()
+            {
+                Movies = await query.ToListAsync(),
+                
+            };
+
+            
+
+            return View(homeViewModel);
+            //Ends New change
+        }
+
+        private string GetUserFullName()
+        {
+            return _context.Users
+
+                .Where(u => u.Email == User.Identity.Name)
+                .Select(u => u.FullName)
+                .FirstOrDefault();
         }
 
         public IActionResult Privacy()

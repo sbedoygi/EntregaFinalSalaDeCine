@@ -6,8 +6,7 @@ namespace Cine_Nauta.Models
     {
         public ICollection<Movie> Movies { get; set; }
 
+ 
 
-
-    
     }
 }

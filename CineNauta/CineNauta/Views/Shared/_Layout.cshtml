@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CineNauta.styles.css" asp-append-version="true" />
+    <!-- Agrega la referencia a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Agrega la referencia a tu archivo CSS personalizado -->
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
     <header>
@@ -81,14 +85,14 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-xl">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="">
             &copy; 2023 - CineNauta - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
@@ -99,27 +103,3 @@
 </body>
 </html>
 
-<style>
-    /* Color morado personalizado */
-
-
-    /* Fondo morado para el menú desplegable */
-    .a-nav {
-        background-color: #ffff; /* Color de fondo para el menú desplegable */
-    }
-
-    .a-nav:hover {
-        color: #ffff;
-        background-color: #8A2BE2; /* Color de fondo para el menú desplegable */
-        
-    }
-
-    /* Estilos adicionales personalizados */
-    .navbar-brand {
-       
-       font-size: 24px; /* Tamaño de fuente personalizado */
-       font-weight: bold; /* Fuente en negrita */
-    }
-
- 
-</style>

@@ -20,3 +20,29 @@ body {
 .navbar-brand {
     color: blueviolet;
 }
+
+body {
+    background-color: #f8f9fa; /* Color de fondo */
+}
+    background-color: #161613;
+}
+
+.jumbotron {
+    background-color: #343a40; /* Color del encabezado jumbotron */
+    color: #ffffff; /* Color del texto en el encabezado jumbotron */
+}
+    .jumbotron a,p,h1 {
+        color: black;
+    }
+
+.btn-primary {
+    background-color: #007bff; /* Color del botón primario */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Color del botón secundario */
+}
+
+.carousel-control-prev carousel-control-prev-icon {
+    color: black;
+}

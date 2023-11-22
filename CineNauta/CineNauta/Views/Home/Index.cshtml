@@ -1,8 +1,90 @@
-﻿@{
+﻿@model Cine_Nauta.Models.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="text-center">
+        <h1 class="display-4">Bienvenidos @ViewBag.UserFullName a la administración de Cine Nauta</h1>
+    </div>
+}
+else
+{
+
+    <div class="container-xl">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">CineWeb</h1>
+            <p class="lead">Descubre las últimas películas y disfruta de la experiencia cinematográfica.</p>
+            <hr class="my-4">
+            <p>Explora nuestra selección de películas y encuentra tus favoritas.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Explorar películas</a>
+        </div>
+
+        @foreach (var group in Model.Movies.Select((item, index) => new { Item = item, Index = index })
+       .GroupBy(x => x.Index / 4))
+        {
+            <div class="row" style="text-align: center;">
+                @foreach (var item in group.Select(g => g.Item))
+                {
+                    <div class="col-md-3">
+                        <div class="card zoom">
+                            <div class="card-title"> <h3>@item.Title </h3></div>
+                            <div class="card-body">
+                                <!-- Verifica y ajusta la ruta de la imagen -->
+                                @*<img src="@item.ImageFullPath" alt="@item.Title" style="height:150px; max-width:280px;" /> *@
+                                <p class="mt-2">
+                                    @item.Description
+                                </p>
+                                <!-- Elimina los encabezados dentro de <p> -->
+                            </div>
+                            <div class="card-foot m-2">
+                                <!-- Ajusta las rutas y nombres de las acciones según tus necesidades -->
+                                <a asp-action="DetailsProduct" asp-route-productId="@item.Id" class="btn btn-secondary">Detalles</a>
+                                <a asp-action="AddProductInCart" asp-route-productId="@item.Id" class="btn btn-primary">Agregar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+       
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Sobre Nosotros</h2>
+                <p>CineWeb es tu destino para descubrir las últimas películas, ver trailers, leer reseñas y obtener información detallada sobre tus películas favoritas. Nos esforzamos por ofrecer una experiencia cinematográfica única a nuestros usuarios.</p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h2>Contacto</h2>
+                <p>¿Tienes preguntas o comentarios? ¡Contáctanos!</p>
+                <p>Email: info@cineweb.com</p>
+                <p>Teléfono: (555) 123-4567</p>
+            </div>
+            <div class="col-md-6">
+                <h2>Redes Sociales</h2>
+                <p>Síguenos en nuestras redes sociales para estar al tanto de las últimas noticias y actualizaciones:</p>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    }
+
+
+
+<!-- Agrega la referencia a Bootstrap JS y Popper.js (necesarios para algunos componentes de Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
