@@ -24,8 +24,7 @@ namespace Cine_Nauta.DAL
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Function> Functions { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<TemporalSale> TemporalSales { get; set; }
+
 
 
 

@@ -4,9 +4,7 @@ namespace Cine_Nauta.DAL.Entities
 {
     public class Reservation : EntityCine
     {
-        [Display(Name = "Fecha de reserva")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public DateTime ReservationDate { get; set; } // Fecha y hora de la reserva
+
 
         [Display(Name = "Precio Total")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -20,9 +18,12 @@ namespace Cine_Nauta.DAL.Entities
         [Display(Name = "Usuarios")]
         public User User { get; set; }
 
+
         // Asientos reservados (una reserva puede tener múltiples asientos)
         [Display(Name = "Asientos")]
         public ICollection<Seat> Seats { get; set; }
+
+        
 
     }
 }

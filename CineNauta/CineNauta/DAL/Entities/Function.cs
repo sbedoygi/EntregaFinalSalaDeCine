@@ -26,7 +26,7 @@ namespace Cine_Nauta.DAL.Entities
         public Room Room { get; set; } //Relacion con Sala
 
         // Una funcion puede tener varias reservas por el mismo o otro usuario
-        public ICollection<Reservation> Reservations { get; set; }
+       // public ICollection<Reservation> Reservations { get; set; }
 
 
 

@@ -93,8 +93,17 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>
+                       @*  <td>
+                            <form asp-action="AddFunctionInCart" method="post">
+                                <input type="hidden" name="functionId" value="@item.Id" />
+                                <label>Cantidad de asientos:</label>
+                                <input type="number" name="seatCount" value="1" min="1" />
+                                <button type="submit" class="btn btn-primary">Agregar</button>
+                            </form>
+                        </td>
+                    *@
                         <td>
-                            <a asp-action="AddFunctionInCart" asp-route-functionId="@item.Id" class="btn btn-primary">Agregar</a>
+                            <a asp-action="AddReservation" asp-route-functionId="@item.Id" class="btn btn-primary">Agregar</a>
                         </td>
                     </tr>
                 }
