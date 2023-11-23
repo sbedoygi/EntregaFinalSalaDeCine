@@ -1,4 +1,5 @@
-﻿using Cine_Nauta.DAL;
+﻿using Azure;
+using Cine_Nauta.DAL;
 using Cine_Nauta.DAL.Entities;
 using Cine_Nauta.Helpers;
 using Cine_Nauta.Models;
@@ -498,7 +499,149 @@ namespace Cine_Nauta.Controllers
 
         #region Reservation
 
-        
+        public async Task<IActionResult> AddFunctionInCart(int? functionId)
+        {
+            if (functionId == null) return NotFound();
+
+            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account");
+
+            Function function = await _context.Functions.FindAsync(functionId);
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
+
+            if (user == null || function == null) return NotFound();
+
+            // Busca una entrada existente en la tabla TemporalSale para este producto y usuario
+            TemporalSale existingTemporalSale = await _context.TemporalSales
+                .Where(t => t.Function.Id == functionId && t.User.Id == user.Id)
+                .FirstOrDefaultAsync();
+
+            if (existingTemporalSale != null)
+            {
+                // Si existe una entrada, incrementa la cantidad
+                existingTemporalSale.Quantity += 1;
+                existingTemporalSale.ModifiedDate = DateTime.Now;
+            }
+            else
+            {
+                // Si no existe una entrada, crea una nueva
+                TemporalSale temporalSale = new()
+                {
+                    CreatedDate = DateTime.Now,
+                    Function = function,
+                    Quantity = 1,
+                    User = user
+                };
+
+                _context.TemporalSales.Add(temporalSale);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Movies));
+        }
+
+        [Authorize] //Etiqueta para que solo usuarios logueados puedan acceder a este método.
+        public async Task<IActionResult> ShowCartAndConfirm()
+        {
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
+            if (user == null) return NotFound();
+
+            List<TemporalSale>? temporalSales = await _context.TemporalSales
+             .Include(ts => ts.Function)
+                 .ThenInclude(f => f.Room) 
+             .Include(m => m.Movie)  
+             .Where(ts => ts.User.Id == user.Id)
+             .ToListAsync();
+
+            ShowCartViewModel showCartViewModel = new()
+            {
+                User = user,
+                TemporalSales = temporalSales
+            };
+
+            return View(showCartViewModel);
+        }
+
+        public async Task<IActionResult> DecreaseQuantity(Guid? temporalSaleId)
+        {
+            if (temporalSaleId == null) return NotFound();
+
+            TemporalSale temporalSale = await _context.TemporalSales.FindAsync(temporalSaleId);
+            if (temporalSale == null) return NotFound();
+
+            if (temporalSale.Quantity > 1)
+            {
+                temporalSale.Quantity--;
+                temporalSale.ModifiedDate = DateTime.Now;
+                _context.TemporalSales.Update(temporalSale);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(ShowCartAndConfirm));
+        }
+
+        public async Task<IActionResult> IncreaseQuantity(Guid? temporalSaleId)
+        {
+            if (temporalSaleId == null) return NotFound();
+
+            TemporalSale temporalSale = await _context.TemporalSales.FindAsync(temporalSaleId);
+            if (temporalSale == null) return NotFound();
+
+            temporalSale.Quantity++;
+            temporalSale.ModifiedDate = DateTime.Now;
+            _context.TemporalSales.Update(temporalSale);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ShowCartAndConfirm));
+        }
+
+        public async Task<IActionResult> DeleteTemporalSale(Guid? temporalSaleId)
+        {
+            if (temporalSaleId == null) return NotFound();
+
+            TemporalSale temporalSale = await _context.TemporalSales.FindAsync(temporalSaleId);
+            if (temporalSale == null) return NotFound();
+
+            _context.TemporalSales.Remove(temporalSale);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(ShowCartAndConfirm));
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ShowCartAndConfirm(ShowCartViewModel showCartViewModel)
+        {
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
+            if (user == null) return NotFound();
+
+            showCartViewModel.User = user;
+            showCartViewModel.TemporalSales = await _context.TemporalSales
+             .Include(ts => ts.Function)
+             .Where(ts => ts.User.Id == user.Id)
+             .ToListAsync();
+
+
+
+
+            return View(showCartViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAll()
+        {
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
+            if (user == null) return NotFound();
+
+            List<TemporalSale> temporalSale = await _context.TemporalSales
+                .Where(ts => ts.User.Id == user.Id)
+                .ToListAsync();
+
+            _context.RemoveRange(temporalSale);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Movies));
+        }
         #endregion
 
 

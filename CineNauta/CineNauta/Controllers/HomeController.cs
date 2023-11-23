@@ -2,6 +2,7 @@
 using Cine_Nauta.DAL.Entities;
 using Cine_Nauta.Helpers;
 using Cine_Nauta.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -74,5 +75,13 @@ namespace Cine_Nauta.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+       
+
+        
+
+
+        
     }
 }
