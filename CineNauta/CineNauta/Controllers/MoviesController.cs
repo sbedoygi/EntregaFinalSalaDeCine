@@ -548,7 +548,7 @@ namespace Cine_Nauta.Controllers
             List<TemporalSale>? temporalSales = await _context.TemporalSales
              .Include(ts => ts.Function)
                  .ThenInclude(f => f.Room) 
-             .Include(m => m.Movie)  
+                    .ThenInclude(m => m.Movie)  
              .Where(ts => ts.User.Id == user.Id)
              .ToListAsync();
 
